@@ -70,7 +70,11 @@ async function run() {
       res.send(result);
     });
 
-
+// get apply colleges
+app.get("/allAppliedColleges",async(req,res)=>{
+  const result = await applyCollection.find().toArray();
+  res.send(result)
+})
 
 
 
