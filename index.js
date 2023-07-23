@@ -76,7 +76,27 @@ app.get("/allAppliedColleges",async(req,res)=>{
   res.send(result)
 })
 
+  // send revies
+  app.patch("/reviews/:id", async (req, res) => {
+    const id = req.params.id;
+    const updateCollege = req.body;
 
+    const filter = { _id: new ObjectId(id) };
+    const option = { upsert: true };
+
+    const updateDoc = {
+      $set: {
+        reviews: updateCollege.reviews,
+        ratting:updateCollege.ratting
+      },
+    };
+    const result = await collegesCollection.updateOne(
+      filter,
+      updateDoc,
+      option
+    );
+    res.send(result);
+  });
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
