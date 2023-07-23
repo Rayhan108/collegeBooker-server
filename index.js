@@ -33,6 +33,7 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     const collegesCollection = client.db("collegeBooker").collection("colleges");
+    const applyCollection = client.db("collegeBooker").collection("applyColleges");
  
 
     // get single college using params
@@ -61,7 +62,13 @@ async function run() {
           .toArray();
         res.send(result);
       });
+// apply for admission
+    app.post("/applyColleges", async (req, res) => {
+      const newCollege = req.body;
 
+      const result = await applyCollection.insertOne(newCollege);
+      res.send(result);
+    });
 
 
 
