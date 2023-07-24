@@ -71,10 +71,13 @@ async function run() {
     });
 
 // get apply colleges
-app.get("/allAppliedColleges",async(req,res)=>{
-  const result = await applyCollection.find().toArray();
-  res.send(result)
-})
+app.get("/allAppliedColleges", async (req, res) => {
+  // console.log(req.query);
+  const query = { email: req.query.email };
+  const result = await applyCollection.find(query).toArray();
+  res.send(result);
+  // console.log(result);
+});
 
   // send revies
   app.patch("/reviews/:id", async (req, res) => {
